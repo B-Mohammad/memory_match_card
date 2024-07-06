@@ -1,17 +1,65 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class CardItemModel {
-  Color color;
-  Icon icon;
+  static List<IconData> itemIcon = [
+    CupertinoIcons.airplane,
+    CupertinoIcons.alarm_fill,
+    CupertinoIcons.ant_fill,
+    CupertinoIcons.bell_fill,
+    CupertinoIcons.bed_double_fill,
+    CupertinoIcons.book_fill,
+    CupertinoIcons.car_detailed,
+    CupertinoIcons.camera_fill,
+    CupertinoIcons.cloud_moon_fill,
+    CupertinoIcons.double_music_note,
+    CupertinoIcons.gamecontroller_fill,
+    CupertinoIcons.house_fill,
+    CupertinoIcons.lightbulb_fill,
+    CupertinoIcons.moon_stars_fill,
+    CupertinoIcons.moon_fill,
+    CupertinoIcons.paintbrush_fill,
+    CupertinoIcons.rocket,
+    CupertinoIcons.sun_max_fill,
+    CupertinoIcons.tortoise_fill,
+    CupertinoIcons.tornado
+  ];
+  static List<Color> itemColor = [
+    const Color.fromRGBO(255, 0, 0, 1.0), // Red
+    const Color.fromRGBO(0, 255, 0, 1.0), // Green
+    const Color.fromRGBO(0, 0, 255, 1.0), // Blue
+    const Color.fromRGBO(255, 255, 0, 1.0), // Yellow
+    const Color.fromRGBO(255, 165, 0, 1.0), // Orange
+    const Color.fromRGBO(128, 0, 128, 1.0), // Purple
+    const Color.fromRGBO(255, 192, 203, 1.0), // Pink
+    const Color.fromRGBO(165, 42, 42, 1.0), // Brown
+    const Color.fromRGBO(0, 255, 255, 1.0), // Cyan
+    const Color.fromRGBO(50, 205, 50, 1.0), // LimeGreen
+    const Color.fromRGBO(75, 0, 130, 1.0), // Indigo
+    const Color.fromRGBO(0, 128, 128, 1.0), // Teal
+    const Color.fromRGBO(255, 223, 0, 1.0), // Amber
+    const Color.fromRGBO(128, 128, 128, 1.0), // Grey
+    const Color.fromRGBO(70, 130, 180, 1.0), // SteelBlue
+    const Color.fromRGBO(173, 216, 230, 1.0), // LightBlue
+    const Color.fromRGBO(144, 238, 144, 1.0), // LightGreen
+    const Color.fromRGBO(255, 140, 0, 1.0), // DarkOrange
+    const Color.fromRGBO(147, 112, 219, 1.0), // MediumPurple
+    const Color.fromRGBO(0, 255, 127, 1.0), // SpringGreen
+  ];
+  int type;
   Mode mode;
-  String backGround;
 
   CardItemModel({
-    required this.color,
-    required this.icon,
-    required this.mode,
-    this.backGround = "assets/images/card_assets.svg",
+    required this.type,
+    this.mode = Mode.hide,
   });
+
+  Color getColorItem() {
+    return itemColor[type];
+  }
+
+  IconData getIconItem() {
+    return itemIcon[type];
+  }
 }
 
 enum Mode { hide, visible }

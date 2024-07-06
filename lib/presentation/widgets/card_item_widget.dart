@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:memory_match_card/models/card_item_model.dart';
 
 class CardItemWidget extends StatefulWidget {
-  final int num;
-  const CardItemWidget({super.key, required this.num});
+  final CardItemModel itemModel;
+  const CardItemWidget({super.key, required this.itemModel});
 
   @override
   State<CardItemWidget> createState() => _CardItemWidgetState();
@@ -13,10 +13,12 @@ class CardItemWidget extends StatefulWidget {
 class _CardItemWidgetState extends State<CardItemWidget> {
   double _width = 100;
   final double _height = 150;
-  Mode mode = Mode.hide;
+  // Mode mode = Mode.hide;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(width: 100,height: 150,
+    return SizedBox(
+      width: 100,
+      height: 150,
       child: Center(
         child: InkWell(
           onTap: () {
@@ -27,7 +29,9 @@ class _CardItemWidgetState extends State<CardItemWidget> {
           child: AnimatedContainer(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
-              color: Colors.grey[50],
+              color: widget.itemModel.mode == Mode.hide
+                  ? Colors.grey[50]
+                  : widget.itemModel.getColorItem(),
               borderRadius: BorderRadius.circular(4),
             ),
             duration: const Duration(milliseconds: 80),
@@ -35,26 +39,27 @@ class _CardItemWidgetState extends State<CardItemWidget> {
             height: _height,
             curve: Curves.fastOutSlowIn,
             onEnd: () {
-              if (_width == 0 && mode == Mode.hide) {
+              if (_width == 0 && widget.itemModel.mode == Mode.hide) {
                 setState(() {
                   _width = 100;
-                  mode = Mode.visible;
+                  widget.itemModel.mode = Mode.visible;
                 });
-              } else if (_width == 0 && mode == Mode.visible) {
+              } else if (_width == 0 && widget.itemModel.mode == Mode.visible) {
                 setState(() {
                   _width = 100;
-                  mode = Mode.hide;
+                  widget.itemModel.mode = Mode.hide;
                 });
               }
             },
-            child: mode == Mode.hide
+            child: widget.itemModel.mode == Mode.hide
                 ? SvgPicture.asset(
                     fit: BoxFit.fitHeight,
                     "images/card_asset.svg",
                   )
-                : Text(
-                    widget.num.toString(),
-                    style: const TextStyle(fontSize: 24, color: Colors.black),
+                : Icon(
+                    widget.itemModel.getIconItem(),
+                    color: Colors.white,
+                    size: 32,
                   ),
           ),
         ),

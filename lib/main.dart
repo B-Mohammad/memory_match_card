@@ -40,13 +40,11 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
         ),
         backgroundColor: Colors.black87,
-        body: Center(
+        body: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: const BoardGameWidget()),
+              BoardGameWidget(),
             ],
           ),
         ));
