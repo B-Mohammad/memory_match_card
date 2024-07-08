@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class CardItemModel {
-  static List<IconData> itemIcon = [
+  static const List<IconData> _itemIcon = [
     CupertinoIcons.airplane,
     CupertinoIcons.alarm_fill,
     CupertinoIcons.ant_fill,
@@ -23,43 +23,43 @@ class CardItemModel {
     CupertinoIcons.tortoise_fill,
     CupertinoIcons.tornado
   ];
-  static List<Color> itemColor = [
-    const Color.fromRGBO(255, 0, 0, 1.0), // Red
-    const Color.fromRGBO(0, 255, 0, 1.0), // Green
-    const Color.fromRGBO(0, 0, 255, 1.0), // Blue
-    const Color.fromRGBO(255, 255, 0, 1.0), // Yellow
-    const Color.fromRGBO(255, 165, 0, 1.0), // Orange
-    const Color.fromRGBO(128, 0, 128, 1.0), // Purple
-    const Color.fromRGBO(255, 192, 203, 1.0), // Pink
-    const Color.fromRGBO(165, 42, 42, 1.0), // Brown
-    const Color.fromRGBO(0, 255, 255, 1.0), // Cyan
-    const Color.fromRGBO(50, 205, 50, 1.0), // LimeGreen
-    const Color.fromRGBO(75, 0, 130, 1.0), // Indigo
-    const Color.fromRGBO(0, 128, 128, 1.0), // Teal
-    const Color.fromRGBO(255, 223, 0, 1.0), // Amber
-    const Color.fromRGBO(128, 128, 128, 1.0), // Grey
-    const Color.fromRGBO(70, 130, 180, 1.0), // SteelBlue
-    const Color.fromRGBO(173, 216, 230, 1.0), // LightBlue
-    const Color.fromRGBO(144, 238, 144, 1.0), // LightGreen
-    const Color.fromRGBO(255, 140, 0, 1.0), // DarkOrange
-    const Color.fromRGBO(147, 112, 219, 1.0), // MediumPurple
-    const Color.fromRGBO(0, 255, 127, 1.0), // SpringGreen
+  static const List<Color> _itemColor = [
+    Color.fromRGBO(255, 0, 0, 1.0), // Red
+    Color.fromRGBO(0, 255, 0, 1.0), // Green
+    Color.fromRGBO(0, 0, 255, 1.0), // Blue
+    Color.fromRGBO(255, 255, 0, 1.0), // Yellow
+    Color.fromRGBO(255, 165, 0, 1.0), // Orange
+    Color.fromRGBO(128, 0, 128, 1.0), // Purple
+    Color.fromRGBO(255, 192, 203, 1.0), // Pink
+    Color.fromRGBO(165, 42, 42, 1.0), // Brown
+    Color.fromRGBO(0, 255, 255, 1.0), // Cyan
+    Color.fromRGBO(50, 205, 50, 1.0), // LimeGreen
+    Color.fromRGBO(75, 0, 130, 1.0), // Indigo
+    Color.fromRGBO(0, 128, 128, 1.0), // Teal
+    Color.fromRGBO(255, 223, 0, 1.0), // Amber
+    Color.fromRGBO(128, 128, 128, 1.0), // Grey
+    Color.fromRGBO(70, 130, 180, 1.0), // SteelBlue
+    Color.fromRGBO(173, 216, 230, 1.0), // LightBlue
+    Color.fromRGBO(144, 238, 144, 1.0), // LightGreen
+    Color.fromRGBO(255, 140, 0, 1.0), // DarkOrange
+    Color.fromRGBO(147, 112, 219, 1.0), // MediumPurple
+    Color.fromRGBO(0, 255, 127, 1.0), // SpringGreen
   ];
-  int type;
-  Mode mode;
 
-  CardItemModel({
-    required this.type,
-    this.mode = Mode.hide,
-  });
+  final int type;
+  Mode mode;
+  double width;
+
+  CardItemModel(
+      {required this.type, this.mode = Mode.hidden, required this.width});
 
   Color getColorItem() {
-    return itemColor[type];
+    return _itemColor[type];
   }
 
   IconData getIconItem() {
-    return itemIcon[type];
+    return _itemIcon[type];
   }
 }
 
-enum Mode { hide, visible }
+enum Mode { hidden, revealed, matched }
