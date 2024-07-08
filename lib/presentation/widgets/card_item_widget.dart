@@ -4,7 +4,7 @@ import 'package:memory_match_card/models/card_item_model.dart';
 
 class CardItemWidget extends StatefulWidget {
   final CardItemModel itemModel;
-  final void Function() onTap;
+  final void Function()? onTap;
 
   const CardItemWidget({
     super.key,

@@ -1,9 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 import 'dart:math';
-
 import 'package:get/get.dart';
-
 import 'package:memory_match_card/models/card_item_model.dart';
 
 class GameBoardModel extends GetxController {
@@ -11,10 +8,12 @@ class GameBoardModel extends GetxController {
   List<int> revealedCardIndexes = [];
   bool isGameOver;
   double cardsWidth;
+  int time;
 
   GameBoardModel({
-    this.isGameOver = false,
+    this.isGameOver = true,
     required this.cardsWidth,
+    this.time = 0,
   });
 
   bool checkIsGameOver() {
@@ -73,6 +72,8 @@ class GameBoardModel extends GetxController {
   }
 
   void startGame() {
+    isGameOver = false;
+    setTimer();
     for (var element in cardsModel) {
       element.mode = Mode.revealed;
       element.width = 0;
@@ -84,6 +85,17 @@ class GameBoardModel extends GetxController {
         element.width = 0;
       }
       update();
+    });
+  }
+
+  void setTimer() {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (isGameOver) {
+        timer.cancel();
+      } else {
+        time++;
+        update();
+      }
     });
   }
 }

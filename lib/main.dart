@@ -42,11 +42,18 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         backgroundColor: Colors.black87,
         body: const Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              BoardGameWidget(),
-            ],
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(24),
+            scrollDirection: Axis.vertical,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  BoardGameWidget(),
+                ],
+              ),
+            ),
           ),
         ));
   }
