@@ -79,14 +79,14 @@ class GameBoardModel extends GetxController {
     time = 0;
     setTimer();
     for (var element in cardsModel) {
-      element.mode = Mode.revealed;
       element.width = 0;
+      element.mode = Mode.revealed;
     }
     update(["board", "timer"]);
     Timer(const Duration(seconds: 1), () {
       for (var element in cardsModel) {
-        element.mode = Mode.hidden;
         element.width = 0;
+        element.mode = Mode.hidden;
       }
       update(["board"]);
     });

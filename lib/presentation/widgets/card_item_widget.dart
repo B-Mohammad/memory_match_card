@@ -32,9 +32,9 @@ class _CardItemWidgetState extends State<CardItemWidget> {
               color: widget.itemModel.mode == Mode.hidden
                   ? Colors.grey[50]
                   : widget.itemModel.getColorItem(),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(10),
             ),
-            duration: const Duration(milliseconds: 80),
+            duration: const Duration(milliseconds: 100),
             width: widget.itemModel.width,
             height: _height,
             curve: Curves.fastOutSlowIn,
@@ -44,9 +44,12 @@ class _CardItemWidgetState extends State<CardItemWidget> {
               });
             },
             child: widget.itemModel.mode == Mode.hidden
-                ? SvgPicture.asset(
-                    fit: BoxFit.fitHeight,
-                    "images/card_asset.svg",
+                ? Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: SvgPicture.asset(
+                      fit: BoxFit.fitHeight,
+                      "assets/images/card_asset.svg",
+                    ),
                   )
                 : Icon(
                     widget.itemModel.getIconItem(),
