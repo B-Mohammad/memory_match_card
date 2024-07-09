@@ -14,44 +14,48 @@ class BoardGameWidget extends StatelessWidget {
 
     return Column(
       children: [
-        GetBuilder<GameBoardModel>(builder: (controller) {
-          return ElevatedButton(
-            onPressed: controller.isGameOver
-                ? () {
-                    controller.startGame();
-                  }
-                : null,
-            style: ElevatedButton.styleFrom(
-                fixedSize: const Size(300, 45),
-                foregroundColor: Colors.white,
-                disabledForegroundColor: Colors.white,
-                backgroundColor: const Color.fromARGB(255, 6, 96, 8),
-                disabledBackgroundColor: const Color.fromARGB(255, 131, 17, 9),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4))),
-            child: gameBoardModel.isGameOver
-                ? const Text("Start")
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Text(
-                          "${controller.time} S",
-                        ),
+        GetBuilder<GameBoardModel>(
+            id: "timer",
+            builder: (controller) {
+              return ElevatedButton(
+                onPressed: controller.isGameOver
+                    ? () {
+                        controller.startGame();
+                      }
+                    : null,
+                style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(300, 45),
+                    foregroundColor: Colors.white,
+                    disabledForegroundColor: Colors.white,
+                    backgroundColor: const Color.fromARGB(255, 6, 96, 8),
+                    disabledBackgroundColor:
+                        const Color.fromARGB(255, 131, 17, 9),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4))),
+                child: gameBoardModel.isGameOver
+                    ? const Text("Start")
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Text(
+                              "${controller.time} S",
+                            ),
+                          ),
+                          const Icon(
+                            Icons.timer_sharp,
+                            size: 18,
+                          )
+                        ],
                       ),
-                      const Icon(
-                        Icons.timer_sharp,
-                        size: 18,
-                      )
-                    ],
-                  ),
-          );
-        }),
+              );
+            }),
         const SizedBox(
           height: 16,
         ),
         GetBuilder<GameBoardModel>(
+          id: "board",
           builder: (controller) {
             return Column(
               children: List.generate(3, (rowIndex) {

@@ -30,7 +30,7 @@ class GameBoardModel extends GetxController {
     } else {
       selectedIndex = index;
     }
-    update();
+    update(["board"]);
   }
 
   void checkMatch(int selectedCard1, int selectedCard2) {
@@ -39,17 +39,20 @@ class GameBoardModel extends GetxController {
       cardsModel[selectedCard2].mode = Mode.matched;
       isGameOver = checkIsGameOver();
       if (isGameOver) {
+        cardsModel = [];
         createCardsRandomly();
+        // update(["board,timer"]);
       }
+      update(["board"]);
     } else {
-      Timer(const Duration(seconds: 1), () {
+      Timer(const Duration(milliseconds: 500), () {
         cardsModel[selectedCard1].mode = Mode.hidden;
         cardsModel[selectedCard1].width = 0;
         cardsModel[selectedCard2].mode = Mode.hidden;
         cardsModel[selectedCard2].width = 0;
+        update(["board"]);
       });
     }
-    update();
   }
 
   void createCardsRandomly() {
@@ -79,13 +82,13 @@ class GameBoardModel extends GetxController {
       element.mode = Mode.revealed;
       element.width = 0;
     }
-    update();
+    update(["board", "timer"]);
     Timer(const Duration(seconds: 1), () {
       for (var element in cardsModel) {
         element.mode = Mode.hidden;
         element.width = 0;
       }
-      update();
+      update(["board"]);
     });
   }
 
@@ -95,8 +98,8 @@ class GameBoardModel extends GetxController {
         timer.cancel();
       } else {
         time++;
-        update();
       }
+      update(["timer"]);
     });
   }
 }
