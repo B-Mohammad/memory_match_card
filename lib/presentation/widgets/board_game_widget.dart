@@ -3,14 +3,9 @@ import 'package:get/get.dart';
 import 'package:memory_match_card/models/game_board_model.dart';
 import 'package:memory_match_card/presentation/widgets/card_item_widget.dart';
 
-class BoardGameWidget extends StatefulWidget {
+class BoardGameWidget extends StatelessWidget {
   const BoardGameWidget({super.key});
 
-  @override
-  State<BoardGameWidget> createState() => _BoardGameWidgetState();
-}
-
-class _BoardGameWidgetState extends State<BoardGameWidget> {
   @override
   @override
   Widget build(BuildContext context) {
@@ -45,7 +40,10 @@ class _BoardGameWidgetState extends State<BoardGameWidget> {
                           "${controller.time} S",
                         ),
                       ),
-                      const Icon(Icons.timer_sharp,size: 18,)
+                      const Icon(
+                        Icons.timer_sharp,
+                        size: 18,
+                      )
                     ],
                   ),
           );

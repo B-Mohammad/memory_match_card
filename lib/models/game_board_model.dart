@@ -5,7 +5,9 @@ import 'package:memory_match_card/models/card_item_model.dart';
 
 class GameBoardModel extends GetxController {
   List<CardItemModel> cardsModel = [];
-  List<int> revealedCardIndexes = [];
+  // List<int> revealedCardIndexes = [];
+  int selectedIndex = 999;
+  int lock = 0;
   bool isGameOver;
   double cardsWidth;
   int time;
@@ -23,33 +25,38 @@ class GameBoardModel extends GetxController {
   void onCardPressed(int index) {
     cardsModel[index].mode = Mode.revealed;
     cardsModel[index].width = 0;
+    lock++;
+    if (lock % 2 == 0) {
+      checkMatch(selectedIndex, index);
+    } else {
+      selectedIndex = index;
+    }
+    // revealedCardIndexes.add(index);
     update();
-    revealedCardIndexes.add(index);
-    if (revealedCardIndexes.length == 2) {
-      if (cardsModel[revealedCardIndexes[0]].type ==
-          cardsModel[revealedCardIndexes[1]].type) {
-        cardsModel[revealedCardIndexes[0]].mode = Mode.matched;
-        cardsModel[revealedCardIndexes[1]].mode = Mode.matched;
-        isGameOver = checkIsGameOver();
-      } else {
-        // Timer(const Duration(seconds: 1), () {
-        // cardsModel[revealedCardIndexes[0]] = CardItemModel(
-        //     type: cardsModel[revealedCardIndexes[0]].type, width: 0);
-        // cardsModel[revealedCardIndexes[1]] = CardItemModel(
-        //     type: cardsModel[revealedCardIndexes[1]].type, width: 0);
-        // cardsModel[revealedCardIndexes[0]].mode = Mode.hidden;
-        // cardsModel[revealedCardIndexes[0]].width = 0;
+  }
 
-        Timer(const Duration(seconds: 1), () {
-          print("object");
-        });
-        // update();
+  void checkMatch(int selectedCard1, int selectedCard2) {
+    if (cardsModel[selectedCard1].type == cardsModel[selectedCard2].type) {
+      cardsModel[selectedCard1].mode = Mode.matched;
+      cardsModel[selectedCard2].mode = Mode.matched;
+      isGameOver = checkIsGameOver();
+      if (isGameOver) {
+        createCardsRandomly();
       }
       // update();
-
-      print(revealedCardIndexes);
-      revealedCardIndexes = [];
+    } else {
+      Timer(const Duration(seconds: 1), () {
+        // cardsModel[selectedCards[0]] = CardItemModel(
+        //     type: cardsModel[selectedCards[0]].type, width: 0);
+        // cardsModel[selectedCards[1]] = CardItemModel(
+        //     type: cardsModel[selectedCards[1]].type, width: 0);
+        cardsModel[selectedCard1].mode = Mode.hidden;
+        cardsModel[selectedCard1].width = 0;
+        cardsModel[selectedCard2].mode = Mode.hidden;
+        cardsModel[selectedCard2].width = 0;
+      });
     }
+    update();
   }
 
   void createCardsRandomly() {
@@ -73,6 +80,7 @@ class GameBoardModel extends GetxController {
 
   void startGame() {
     isGameOver = false;
+    time = 0;
     setTimer();
     for (var element in cardsModel) {
       element.mode = Mode.revealed;
