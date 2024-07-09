@@ -5,7 +5,6 @@ import 'package:memory_match_card/models/card_item_model.dart';
 
 class GameBoardModel extends GetxController {
   List<CardItemModel> cardsModel = [];
-  // List<int> revealedCardIndexes = [];
   int selectedIndex = 999;
   int lock = 0;
   bool isGameOver;
@@ -31,7 +30,6 @@ class GameBoardModel extends GetxController {
     } else {
       selectedIndex = index;
     }
-    // revealedCardIndexes.add(index);
     update();
   }
 
@@ -43,13 +41,8 @@ class GameBoardModel extends GetxController {
       if (isGameOver) {
         createCardsRandomly();
       }
-      // update();
     } else {
       Timer(const Duration(seconds: 1), () {
-        // cardsModel[selectedCards[0]] = CardItemModel(
-        //     type: cardsModel[selectedCards[0]].type, width: 0);
-        // cardsModel[selectedCards[1]] = CardItemModel(
-        //     type: cardsModel[selectedCards[1]].type, width: 0);
         cardsModel[selectedCard1].mode = Mode.hidden;
         cardsModel[selectedCard1].width = 0;
         cardsModel[selectedCard2].mode = Mode.hidden;

@@ -39,13 +39,6 @@ class _CardItemWidgetState extends State<CardItemWidget> {
             height: _height,
             curve: Curves.fastOutSlowIn,
             onEnd: () {
-              // if (widget.itemModel.width == 0 &&
-              //     widget.itemModel.mode == Mode.hidden) {
-              //   widget.itemModel.mode = Mode.revealed;
-              // } else if (widget.itemModel.width == 0 &&
-              //     widget.itemModel.mode == Mode.revealed) {
-              //   widget.itemModel.mode = Mode.hidden;
-              // }
               setState(() {
                 widget.itemModel.width = 100;
               });
