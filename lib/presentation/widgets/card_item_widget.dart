@@ -25,10 +25,20 @@ class _CardItemWidgetState extends State<CardItemWidget> {
       height: 150,
       child: Center(
         child: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: widget.itemModel.mode == Mode.hidden ? widget.onTap : null,
           child: AnimatedContainer(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
+                )
+              ],
               color: widget.itemModel.mode == Mode.hidden
                   ? Colors.grey[50]
                   : widget.itemModel.getColorItem(),

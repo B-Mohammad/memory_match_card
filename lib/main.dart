@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
         ),
-        backgroundColor: Colors.black87,
+        backgroundColor: const Color.fromARGB(255, 234, 234, 234),
         body: const Center(
           child: SingleChildScrollView(
             padding: EdgeInsets.all(24),
