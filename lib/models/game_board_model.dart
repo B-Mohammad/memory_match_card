@@ -1,9 +1,14 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:memory_match_card/models/card_item_model.dart';
+import 'package:memory_match_card/presentation/widgets/custom_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GameBoardModel extends GetxController {
+  final Future<SharedPreferences> _storage = SharedPreferences.getInstance();
+
   List<CardItemModel> cardsModel = [];
   int selectedIndex = 999;
   int lock = 0;
@@ -17,8 +22,24 @@ class GameBoardModel extends GetxController {
     this.time = 0,
   });
 
-  bool checkIsGameOver() {
-    return cardsModel.every((element) => element.mode == Mode.matched);
+  void checkIsGameOver() async {
+    isGameOver = cardsModel.every((element) => element.mode == Mode.matched);
+    if (isGameOver) {
+      final SharedPreferences storage = await _storage;
+      List<String> temp = storage.getStringList("timeRecord") ?? [];
+      final List<int> timesRecord = temp.map((e) => int.parse(e)).toList();
+      timesRecord.add(time);
+      timesRecord.sort();
+      temp = timesRecord.map((e) => e.toString()).toList();
+      await storage.setStringList('timeRecord', temp);
+
+      cardsModel = [];
+      createCardsRandomly();
+      showCustomDialog(
+          data: temp,
+          latestIndex: timesRecord.indexWhere((element) => element == time));
+      // update(["board,timer"]);
+    }
   }
 
   void onCardPressed(int index) {
@@ -37,12 +58,7 @@ class GameBoardModel extends GetxController {
     if (cardsModel[selectedCard1].type == cardsModel[selectedCard2].type) {
       cardsModel[selectedCard1].mode = Mode.matched;
       cardsModel[selectedCard2].mode = Mode.matched;
-      isGameOver = checkIsGameOver();
-      if (isGameOver) {
-        cardsModel = [];
-        createCardsRandomly();
-        // update(["board,timer"]);
-      }
+      checkIsGameOver();
       update(["board"]);
     } else {
       Timer(const Duration(milliseconds: 500), () {
@@ -101,5 +117,20 @@ class GameBoardModel extends GetxController {
       }
       update(["timer"]);
     });
+  }
+
+  void showCustomDialog({
+    required List<String?> data,
+    required int latestIndex,
+  }) {
+    Get.defaultDialog(
+        content: CustomDialog(
+          data: data,
+          latestIndex: latestIndex,
+        ),
+        title: "List Of Time Record",
+        titleStyle: const TextStyle(fontSize: 18),
+        radius: 8,
+        contentPadding: EdgeInsets.zero);
   }
 }

@@ -11,7 +11,6 @@ class BoardGameWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     GameBoardModel gameBoardModel = Get.put(GameBoardModel(cardsWidth: 100));
     gameBoardModel.createCardsRandomly();
-
     return Column(
       children: [
         GetBuilder<GameBoardModel>(
